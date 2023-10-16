@@ -6,7 +6,6 @@ import { type KudoTaco } from "../typechain-types";
 
 const { parseEther } = ethers;
 const KUDO_GIVER_ROLE = keccak256(ethers.toUtf8Bytes("KUDO_GIVER_ROLE"));
-console.log({ KUDO_GIVER_ROLE })
 
 describe("Kudo Taco", function () {
   // deploy a kudo taco address so that we dont need to do this every test
