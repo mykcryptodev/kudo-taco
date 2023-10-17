@@ -17,7 +17,13 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
-  exclude: [/solidity/],
+  webpack: (config, {}) => {
+    // exclude the solidity folder from next.js build
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires
+    config.plugins.push(new (require('webpack').IgnorePlugin)({ resourceRegExp: /^\.\/solidity$/, contextRegExp: /next$/ }));
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    return config;
+  }
 };
 
 export default config;
