@@ -17,6 +17,7 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  exclude: [/solidity/],
 };
 
 export default config;
