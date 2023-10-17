@@ -2,7 +2,6 @@
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially useful
  * for Docker builds.
  */
-import { IgnorePlugin } from 'webpack';
 await import("./src/env.mjs");
 
 /** @type {import("next").NextConfig} */
@@ -18,7 +17,10 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
-  webpack: (config, {}) => {
+  webpack: async (config, {}) => {
+    // Dynamically import webpack's IgnorePlugin
+    const webpack = await import('webpack');
+    const IgnorePlugin = webpack.IgnorePlugin;
     // Ignore the solidity folder
     // eslint-disable-next-line
     config.plugins.push(new IgnorePlugin({ resourceRegExp: /solidity/ }));
