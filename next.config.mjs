@@ -2,6 +2,7 @@
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially useful
  * for Docker builds.
  */
+import { IgnorePlugin } from 'webpack';
 await import("./src/env.mjs");
 
 /** @type {import("next").NextConfig} */
@@ -18,9 +19,17 @@ const config = {
     defaultLocale: "en",
   },
   webpack: (config, {}) => {
-    // exclude the solidity folder from next.js build
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires
-    config.plugins.push(new (require('webpack').IgnorePlugin)({ resourceRegExp: /^\.\/solidity$/, contextRegExp: /next$/ }));
+    // Ignore the solidity folder
+    // eslint-disable-next-line
+    config.plugins.push(new IgnorePlugin({ resourceRegExp: /solidity/ }));
+
+    // Prevent bundling of solidity files
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+    config.externals = config.externals || [];
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    config.externals.push(/solidity/);
+
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return config;
   }
