@@ -8,9 +8,6 @@ package-lock.json
 yarn.lock
 bun.lockb
 
-# solidity
-/solidity
-
 # testing
 /coverage
 
