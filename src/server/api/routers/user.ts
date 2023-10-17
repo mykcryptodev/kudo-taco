@@ -76,7 +76,6 @@ export const userRouter = createTRPCRouter({
       slackTeamId: z.string(),
     }))
     .query(async ({ ctx, input }) => {
-      console.log(' finding in trpc by ')
       console.log({
         input
       })
